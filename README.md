@@ -5,13 +5,15 @@ Container image for the [Tensorflow](https://www.tensorflow.org/) server to exec
 To support the deployment of Models from EAM, the [MMS Help](https://github.com/TheMosquito/MMS_Helper) functionality is included in this container image.
 
 Software Installed:
-*   [Tensor](https://www.tensorflow.org/)
+*   [Tensor Flow](https://www.tensorflow.org/)
 *   [MMS Helper](https://github.com/TheMosquito/MMS_Helper)
 
 ## Tensorflow Serving
 
 ```
-docker run -t --rm -p 8501:8501 \
--v "$PWD/export:/models/<model name>" 
--e MODEL_NAME=<model name> edge-tensorflow-runtime:v1.0
+export MODEL_NAME="mymodel"
+
+docker run -t --rm -p 8501:8501   \
+-v "$PWD/export:/models/$(MODEL_NAME}" \
+-e MODEL_NAME=$(MODEL_NAME} tf-server:v1.0
 ```
