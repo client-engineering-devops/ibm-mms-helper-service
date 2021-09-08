@@ -5,6 +5,7 @@ Container image for the [Tensorflow](https://www.tensorflow.org/) server to exec
 To support the deployment of Models from EAM, the [MMS Help](https://github.com/TheMosquito/MMS_Helper) functionality is included in this container image.
 
 Software Installed:
+*   python
 *   [Tensor Flow](https://www.tensorflow.org/)
 *   [MMS Helper](https://github.com/TheMosquito/MMS_Helper)
 
