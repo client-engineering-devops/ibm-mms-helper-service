@@ -1,0 +1,19 @@
+{
+  "org": "$HZN_ORG_ID",
+  "label": "",
+  "url": "tensorflow-server",
+  "version": "v1.0",
+  "arch": "amd64",
+  "public": false,
+  "sharable": "singleton",
+  "requiredServices": [],
+  "userInput": [],
+  "deployment": {
+    "services": {
+      "tensorflow-server": {
+        "image": "quay.io/ibmtechgarage/tg-tensorflow-server:v1.0",
+        "binds": ["tensorflow_volume:/s:rw"]
+      }
+    }
+  }
+}
