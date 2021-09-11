@@ -44,7 +44,7 @@ YOUR_SERVICE_NAME:=tensorflow-server
 YOUR_SERVICE_VERSION:=1.0.0
 MMS_HELPER_SHARED_VOLUME:=tensorflow_volume
 YOUR_OBJECT_TYPE:=tensorflow-model
-YOUR_DOCKERHUB_ID:=smcotugno
+QUAY_REGISTRY:=quay.io/ibmtechgarage
 
 # Optionally specify an example file to send as an MMS object. If you do so,
 # a file named with the path in OPTIONAL_OBJECT_FILE must be present.
@@ -58,7 +58,7 @@ ARCH:=`./helper -a`
 # Note that service and container may have differen names and versions.
 MMS_HELPER_SERVICE_NAME:=mms-helper
 MMS_HELPER_SERVICE_VERSION:=1.0.0
-MMS_HELPER_CONTAINER:=$(YOUR_DOCKERHUB_ID)/mms-helper_$(ARCH):1.0.0
+MMS_HELPER_CONTAINER:=$(QUAY_REGISTRY)/mms-helper_$(ARCH):1.0.0
 # For DockerHub, leave the variable below as it is (empty).
 # For secure registries set it using:  -r "registry.wherever.com:myid:mypw"`
 MMS_HELPER_CONTAINER_CREDS:=
