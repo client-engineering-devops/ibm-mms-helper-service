@@ -63,6 +63,7 @@ MMS_HELPER_CONTAINER:=$(QUAY_REGISTRY)/mms-helper_$(ARCH):1.0.0
 # For secure registries set it using:  -r "registry.wherever.com:myid:mypw"`
 MMS_HELPER_CONTAINER_CREDS:=
 MMS_HELPER_PATTERN_NAME:=mms-helper-pattern
+MMS_HELPER_POLICY_NAME:=mms-helper-deploy-policy
 
 build: Makefile Dockerfile mms_helper.py
 	docker build -t $(MMS_HELPER_CONTAINER) .
@@ -90,6 +91,16 @@ publish-pattern:
         SERVICE_VERSION="$(MMS_HELPER_SERVICE_VERSION)"\
         PATTERN_NAME="$(MMS_HELPER_PATTERN_NAME)" \
 	hzn exchange pattern publish -f pattern.json
+
+publish-deployment-policy:
+	@ARCH=$(ARCH) \
+        SERVICE_NAME="$(MMS_HELPER_SERVICE_NAME)" \
+        SERVICE_VERSION="$(MMS_HELPER_SERVICE_VERSION)"\
+        POLICY_NAME="$(MMS_HELPER_POLILCY_NAME)" \
+	hzn exchange deployment addpolicy --json-file=mms-helper-deploy-policy.json --no-constraints "mms-helper-deploy-policy"
+
+register-policy:
+	hzn register --policy "$(MMS_HELPER_POLICY_NAME)"
 
 register-pattern:
 	hzn register --pattern "$(MMS_HELPER_PATTERN_NAME)"
