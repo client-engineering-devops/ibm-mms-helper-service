@@ -30,7 +30,7 @@ HZN_ESS_USER = creds['id']
 HZN_ESS_TOKEN = creds['token']
 
 # Cheap debug
-DEBUG = False
+DEBUG = True
 def debug(s):
   if DEBUG:
     print(s)
@@ -74,6 +74,7 @@ def main():
           debug('ESS object file copy was successful.')
           try:
             rename_command = '/bin/mv %s/%s %s/%s' % (MMS_HELPER_VOLUME_MOUNT, tempfile, MMS_HELPER_VOLUME_MOUNT, id)
+ # Dave TO DO:  add code to , untar and then move to the proper tf models path
             subprocess.run(rename_command, shell=True, check=True)
             debug('File rename was successful.')
             mark_received_command = ESS_MARK_RECEIVED_BASE % (HZN_ESS_USER, HZN_ESS_TOKEN, HZN_ESS_CERT, HZN_ESS_API_ADDRESS, MMS_HELPER_OBJECT_TYPE, id)

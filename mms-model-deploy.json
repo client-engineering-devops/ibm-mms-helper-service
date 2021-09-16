@@ -1,0 +1,29 @@
+{
+    "objectID": "kubeflow-mnist.tar.gz",            
+    "objectType": "tensorflow-model",          
+    "destinationOrgID": "itg", 
+    "destinationPolicy": {     
+      "properties": [         
+        {
+          "name": "GPU",
+          "value": true,
+          "type": "bool"  
+        }
+      ],
+      "constraints": [   
+        ""
+      ],
+      "services": [  
+        {
+          "orgID": "itg",       
+          "serviceName": "mms-helper", 
+          "arch": "amd64",    
+          "version": "1.0.1"  
+        }
+      ]
+    },
+    "expiration": "",     
+    "version": "",            
+    "description": "",         
+    "activationTime": ""
+  }

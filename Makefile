@@ -48,17 +48,16 @@ QUAY_REGISTRY:=quay.io/ibmtechgarage
 
 # Optionally specify an example file to send as an MMS object. If you do so,
 # a file named with the path in OPTIONAL_OBJECT_FILE must be present.
-OPTIONAL_OBJECT_ID:=kubeflow-minst
-OPTIONAL_OBJECT_FILE:=kubeflow-minst.tar.gz
+OPTIONAL_OBJECT_ID:=kubeflow-mnist
+OPTIONAL_OBJECT_FILE:=./kubeflow-mnist.tar.gz
+MMS_HELPER_OBJECT_DEF=mms-model-deploy.json
 
 # The "helper" utility is useful for things like this so I included it.
 ARCH:=`./helper -a`
 
 # Variables for MMS_Helper container/service/pattern (optionally edit these)
 # Note that service and container may have differen names and versions.
-MMS_HELPER_SERVICE_NAME:=mms-helper
-MMS_HELPER_SERVICE_VERSION:=1.0.0
-MMS_HELPER_CONTAINER:=$(QUAY_REGISTRY)/mms-helper_$(ARCH):1.0.0
+MMS_HELPER_CONTAINER:=$(QUAY_REGISTRY)/mms-helper_$(ARCH):1.0.1
 # For DockerHub, leave the variable below as it is (empty).
 # For secure registries set it using:  -r "registry.wherever.com:myid:mypw"`
 MMS_HELPER_CONTAINER_CREDS:=
@@ -106,7 +105,7 @@ register-pattern:
 	hzn register --pattern "$(MMS_HELPER_PATTERN_NAME)"
 
 publish-object:
-	hzn mms object publish --type=$(YOUR_OBJECT_TYPE) --id=$(OPTIONAL_OBJECT_ID) --object=$(OPTIONAL_OBJECT_FILE) --pattern=$(MMS_HELPER_PATTERN_NAME)
+	hzn mms object publish --object=$(OPTIONAL_OBJECT_FILE) --def=$(MMS_HELPER_OBJECT_DEF)
 
 validate-creds:
 	@if [ -z "${HZN_ORG_ID}" ]; \
