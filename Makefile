@@ -57,9 +57,9 @@ ARCH:=`./helper -a`
 
 # Variables for MMS_Helper container/service/pattern (optionally edit these)
 # Note that service and container may have differen names and versions.
-MMS_HELPER_SERVICE_VERSION:=1.0.1
+MMS_HELPER_SERVICE_VERSION:=1.0.2
 MMS_HELPER_SERVICE_NAME:=mms-helper
-MMS_HELPER_CONTAINER:=$(QUAY_REGISTRY)/mms-helper_$(ARCH):1.0.1
+MMS_HELPER_CONTAINER:=$(QUAY_REGISTRY)/mms-helper_$(ARCH):1.0.2
 # For DockerHub, leave the variable below as it is (empty).
 # For secure registries set it using:  -r "registry.wherever.com:myid:mypw"`
 MMS_HELPER_CONTAINER_CREDS:=
