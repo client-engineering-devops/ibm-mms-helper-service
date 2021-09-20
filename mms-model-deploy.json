@@ -1,7 +1,7 @@
 {
-    "objectID": "kubeflow-mnist.tar.gz",            
-    "objectType": "tensorflow-model",          
-    "destinationOrgID": "itg", 
+    "objectID": "$FILE_ID",            
+    "objectType": "$OBJECT_TYPE",          
+    "destinationOrgID": "$ORG_ID", 
     "destinationPolicy": {     
       "properties": [         
         {
@@ -15,10 +15,10 @@
       ],
       "services": [  
         {
-          "orgID": "itg",       
-          "serviceName": "mms-helper", 
-          "arch": "amd64",    
-          "version": "1.0.1"  
+          "orgID": "ORG_ID",       
+          "serviceName": "$SERVICE_NAME", 
+          "arch": "$ARCH",    
+          "version": "$SERVICE_VERSION"
         }
       ]
     },

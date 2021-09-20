@@ -41,9 +41,9 @@
 
 # Please edit these appropriately (as described above)
 YOUR_SERVICE_NAME:=tensorflow-server
-YOUR_SERVICE_VERSION:=1.0.0
+YOUR_SERVICE_VERSION:=1.0.2
 MMS_HELPER_SHARED_VOLUME:=tensorflow_volume
-YOUR_OBJECT_TYPE:=tensorflow-model
+YOUR_OBJECT_TYPE:=tensorflow-object
 QUAY_REGISTRY:=quay.io/ibmtechgarage
 
 # Optionally specify an example file to send as an MMS object. If you do so,
@@ -57,6 +57,8 @@ ARCH:=`./helper -a`
 
 # Variables for MMS_Helper container/service/pattern (optionally edit these)
 # Note that service and container may have differen names and versions.
+MMS_HELPER_SERVICE_VERSION:=1.0.1
+MMS_HELPER_SERVICE_NAME:=mms-helper
 MMS_HELPER_CONTAINER:=$(QUAY_REGISTRY)/mms-helper_$(ARCH):1.0.1
 # For DockerHub, leave the variable below as it is (empty).
 # For secure registries set it using:  -r "registry.wherever.com:myid:mypw"`
@@ -105,6 +107,11 @@ register-pattern:
 	hzn register --pattern "$(MMS_HELPER_PATTERN_NAME)"
 
 publish-object:
+	@ARCH=$(ARCH) \
+        SERVICE_NAME="$(MMS_HELPER_SERVICE_NAME)" \
+        SERVICE_VERSION="$(MMS_HELPER_SERVICE_VERSION)" \
+        OBJECT_TYPE="$(YOUR_OBJECT_TYPE)" \
+        FILE_ID="$(OPTIONAL_OBJECT_ID)" \
 	hzn mms object publish --object=$(OPTIONAL_OBJECT_FILE) --def=$(MMS_HELPER_OBJECT_DEF)
 
 validate-creds:
@@ -123,4 +130,4 @@ clean:
 	-hzn exchange service remove -f "${HZN_ORG_ID}/$(MMS_HELPER_SERVICE_NAME)_$(MMS_HELPER_SERVICE_VERSION)_$(ARCH)"
 	-docker rmi -f "$(MMS_HELPER_CONTAINER)"
 
-.PHONY: build dev push publish-service publish-pattern publish-object validate-creds clean
+.PHONY: build dev push publish-service publish-pattern publish-object publish-deployment-policy validate-creds clean

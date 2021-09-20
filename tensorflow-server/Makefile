@@ -1,15 +1,24 @@
 all: build publish-service
 
+# Please edit these appropriately (as described above)
+YOUR_SERVICE_NAME:=tensorflow-server
+YOUR_SERVICE_VERSION:=1.0.2
 QUAY_REGISTRY:=quay.io/ibmtechgarage
 
+# The "helper" utility is useful for things like this so I included it.
+ARCH:=`../helper -a`
+
 build:
-	docker build -t $(QUAY_REGISTRY)/tg-tensorflow-server:1.0.0 .
+	docker build -t $(QUAY_REGISTRY)/tg-tensorflow-server:1.0.2 .
 
 dev:
-	docker run -it $(QUAY_REGISTRY)/tg-tensorflow-server:1.0.0 /bin/sh
+	docker run -it $(QUAY_REGISTRY)/tg-tensorflow-server:1.0.2 /bin/sh
 
 push:
-	docker push $(QUAY_REGISTRY)/tg-tensorflow-server:1.0.0
+	docker push $(QUAY_REGISTRY)/tg-tensorflow-server:1.0.2
 
 publish-service:
+	@ARCH=$(ARCH) \
+    SERVICE_NAME="$(YOUR_SERVICE_NAME)" \
+    SERVICE_VERSION="$(YOUR_SERVICE_VERSION)" \
 	hzn exchange service publish -O -f service.json

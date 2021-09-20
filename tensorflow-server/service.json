@@ -1,17 +1,20 @@
 {
   "org": "$HZN_ORG_ID",
   "label": "",
-  "url": "tensorflow-server",
-  "version": "1.0.0",
-  "arch": "amd64",
+  "url": "$SERVICE_NAME",
+  "version": "$SERVICE_VERSION",
+  "arch": "$ARCH",
   "public": false,
   "sharable": "singleton",
   "requiredServices": [],
-  "userInput": [],
+  "userInput": [
+    { "name": "model_config_file", "label": "Model Config", "type": "string", "defaultValue": "/models/models.config"},
+    { "name": "model_config_file_poll_wait_seconds", "label": "Model Config Poll", "type": "int", "defaultValue": "60" }
+  ],
   "deployment": {
     "services": {
       "tensorflow-server": {
-        "image": "quay.io/ibmtechgarage/tg-tensorflow-server:1.0.0",
+        "image": "quay.io/ibmtechgarage/tg-tensorflow-server:1.0.2",
         "binds": ["tensorflow_volume:/s:rw"]
       }
     }
