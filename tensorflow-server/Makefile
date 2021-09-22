@@ -21,4 +21,5 @@ publish-service:
 	@ARCH=$(ARCH) \
     SERVICE_NAME="$(YOUR_SERVICE_NAME)" \
     SERVICE_VERSION="$(YOUR_SERVICE_VERSION)" \
+	REGISTRY_SERVER="$(QUAY_REGISTRY)" \
 	hzn exchange service publish -O -f service.json

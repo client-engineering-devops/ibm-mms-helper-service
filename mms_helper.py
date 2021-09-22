@@ -63,6 +63,7 @@ def main():
     try:
       raw = subprocess.check_output(get_objects, shell=True)
       output = raw.decode("utf-8") 
+      debug('Get Objects:' get_objects)
       debug('\n\nReceived from ESS:\n')
       debug(output)
       j = json.loads(output)

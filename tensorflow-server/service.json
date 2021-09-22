@@ -14,7 +14,7 @@
   "deployment": {
     "services": {
       "tensorflow-server": {
-        "image": "quay.io/ibmtechgarage/tg-tensorflow-server:1.0.2",
+        "image": "$REGISTRY_SERVER/$SERVICE_NAME:$SERVICE_VERSION",
         "binds": ["tensorflow_volume:/s:rw"]
       }
     }
