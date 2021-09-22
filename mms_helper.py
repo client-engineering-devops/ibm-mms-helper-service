@@ -63,7 +63,6 @@ def main():
     try:
       raw = subprocess.check_output(get_objects, shell=True)
       output = raw.decode("utf-8") 
-      debug('Get Objects:' get_objects)
       debug('\n\nReceived from ESS:\n')
       debug(output)
       j = json.loads(output)
@@ -76,10 +75,10 @@ def main():
           subprocess.run(redirect_command, shell=True, check=True)
           debug('ESS object file copy was successful.')
           try:
+            tar_command = '/bin/tar -xvf %s/%s' % (MMS_HELPER_VOLUME_MOUNT, tempfile)  
+            subprocess.run(tar_command, shell=True, check=True)
+
             rename_command = '/bin/mv %s/%s %s/%s' % (MMS_HELPER_VOLUME_MOUNT, tempfile, MMS_HELPER_VOLUME_MOUNT, id)
-            my_tar = tarfile.open(id) 
-            my_tar.extractall(MMS_HELPER_VOLUME_MOUNT) # specify which folder to extract to
-            my_tar.close()   
             subprocess.run(rename_command, shell=True, check=True)
             debug('File rename was successful.')
             mark_received_command = ESS_MARK_RECEIVED_BASE % (HZN_ESS_USER, HZN_ESS_TOKEN, HZN_ESS_CERT, HZN_ESS_API_ADDRESS, MMS_HELPER_OBJECT_TYPE, id)

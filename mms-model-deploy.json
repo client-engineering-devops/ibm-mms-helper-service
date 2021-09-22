@@ -15,7 +15,7 @@
       ],
       "services": [  
         {
-          "orgID": "ORG_ID",       
+          "orgID": "$HZN_ORG_ID",       
           "serviceName": "$SERVICE_NAME", 
           "arch": "$ARCH",    
           "version": "$SERVICE_VERSION"
