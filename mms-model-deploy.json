@@ -1,7 +1,7 @@
 {
     "objectID": "$FILE_ID",            
     "objectType": "$OBJECT_TYPE",          
-    "destinationOrgID": "$ORG_ID", 
+    "destinationOrgID": "$HZN_ORG_ID", 
     "destinationPolicy": {     
       "properties": [         
         {

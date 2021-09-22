@@ -41,15 +41,15 @@
 
 # Please edit these appropriately (as described above)
 YOUR_SERVICE_NAME:=tensorflow-server
-YOUR_SERVICE_VERSION:=1.0.2
+YOUR_SERVICE_VERSION:=1.0.3
 MMS_HELPER_SHARED_VOLUME:=tensorflow_volume
 YOUR_OBJECT_TYPE:=tensorflow-object
 QUAY_REGISTRY:=quay.io/ibmtechgarage
 
 # Optionally specify an example file to send as an MMS object. If you do so,
 # a file named with the path in OPTIONAL_OBJECT_FILE must be present.
-OPTIONAL_OBJECT_ID:=kubeflow-mnist
-OPTIONAL_OBJECT_FILE:=./kubeflow-mnist.tar.gz
+OPTIONAL_OBJECT_ID:=mnist
+OPTIONAL_OBJECT_FILE:=./mnist.tar.gz
 MMS_HELPER_OBJECT_DEF=mms-model-deploy.json
 
 # The "helper" utility is useful for things like this so I included it.
@@ -57,9 +57,9 @@ ARCH:=`./helper -a`
 
 # Variables for MMS_Helper container/service/pattern (optionally edit these)
 # Note that service and container may have differen names and versions.
-MMS_HELPER_SERVICE_VERSION:=1.0.2
+MMS_HELPER_SERVICE_VERSION:=1.0.3
 MMS_HELPER_SERVICE_NAME:=mms-helper
-MMS_HELPER_CONTAINER:=$(QUAY_REGISTRY)/mms-helper_$(ARCH):1.0.2
+MMS_HELPER_CONTAINER:=$(QUAY_REGISTRY)/$(MMS_HELPER_SERVICE_NAME)_$(ARCH):$(MMS_HELPER_SERVICE_VERSION)
 # For DockerHub, leave the variable below as it is (empty).
 # For secure registries set it using:  -r "registry.wherever.com:myid:mypw"`
 MMS_HELPER_CONTAINER_CREDS:=
@@ -98,7 +98,7 @@ publish-deployment-policy:
         SERVICE_NAME="$(MMS_HELPER_SERVICE_NAME)" \
         SERVICE_VERSION="$(MMS_HELPER_SERVICE_VERSION)"\
         POLICY_NAME="$(MMS_HELPER_POLILCY_NAME)" \
-	hzn exchange deployment addpolicy --json-file=mms-helper-deploy-policy.json --no-constraints "mms-helper-deploy-policy"
+	hzn exchange deployment addpolicy --json-file=$(MMS_HELPER_POLICY_NAME).json --no-constraints "$(MMS_HELPER_POLICY_NAME)"
 
 register-policy:
 	hzn register --policy "$(MMS_HELPER_POLICY_NAME)"
