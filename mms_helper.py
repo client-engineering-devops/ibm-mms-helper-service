@@ -75,7 +75,7 @@ def main():
           subprocess.run(redirect_command, shell=True, check=True)
           debug('ESS object file copy was successful.')
           try:
-            tar_command = '/bin/tar -xvf %s/%s' % (MMS_HELPER_VOLUME_MOUNT, tempfile)  
+            tar_command = '/bin/tar -xvf  %s/%s -C %s' % (MMS_HELPER_VOLUME_MOUNT, tempfile, MMS_HELPER_VOLUME_MOUNT)  
             subprocess.run(tar_command, shell=True, check=True)
             try:
               rename_command = '/bin/mv %s/%s %s/%s' % (MMS_HELPER_VOLUME_MOUNT, tempfile, MMS_HELPER_VOLUME_MOUNT, id)

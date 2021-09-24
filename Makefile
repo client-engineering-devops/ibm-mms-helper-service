@@ -48,8 +48,8 @@ QUAY_REGISTRY:=quay.io/ibmtechgarage
 
 # Optionally specify an example file to send as an MMS object. If you do so,
 # a file named with the path in OPTIONAL_OBJECT_FILE must be present.
-OPTIONAL_OBJECT_ID:=mnist
-OPTIONAL_OBJECT_FILE:=./mnist.tar.gz
+OPTIONAL_OBJECT_ID:=dave
+OPTIONAL_OBJECT_FILE:=./dave.tar.gz
 MMS_HELPER_OBJECT_DEF=mms-model-deploy.json
 
 # The "helper" utility is useful for things like this so I included it.
@@ -57,7 +57,7 @@ ARCH:=`./helper -a`
 
 # Variables for MMS_Helper container/service/pattern (optionally edit these)
 # Note that service and container may have differen names and versions.
-MMS_HELPER_SERVICE_VERSION:=1.0.6
+MMS_HELPER_SERVICE_VERSION:=1.0.8
 MMS_HELPER_SERVICE_NAME:=mms-helper
 MMS_HELPER_CONTAINER:=$(QUAY_REGISTRY)/$(MMS_HELPER_SERVICE_NAME)_$(ARCH):$(MMS_HELPER_SERVICE_VERSION)
 # For DockerHub, leave the variable below as it is (empty).
@@ -65,6 +65,8 @@ MMS_HELPER_CONTAINER:=$(QUAY_REGISTRY)/$(MMS_HELPER_SERVICE_NAME)_$(ARCH):$(MMS_
 MMS_HELPER_CONTAINER_CREDS:=
 MMS_HELPER_PATTERN_NAME:=mms-helper-pattern
 MMS_HELPER_POLICY_NAME:=mms-helper-deploy-policy
+
+update: build push publish-service publish-deployment-policy
 
 build: Makefile Dockerfile mms_helper.py
 	docker build -t $(MMS_HELPER_CONTAINER) .
