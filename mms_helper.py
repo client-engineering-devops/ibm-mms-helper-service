@@ -77,19 +77,21 @@ def main():
           try:
             tar_command = '/bin/tar -xvf %s/%s' % (MMS_HELPER_VOLUME_MOUNT, tempfile)  
             subprocess.run(tar_command, shell=True, check=True)
-
-            rename_command = '/bin/mv %s/%s %s/%s' % (MMS_HELPER_VOLUME_MOUNT, tempfile, MMS_HELPER_VOLUME_MOUNT, id)
-            subprocess.run(rename_command, shell=True, check=True)
-            debug('File rename was successful.')
-            mark_received_command = ESS_MARK_RECEIVED_BASE % (HZN_ESS_USER, HZN_ESS_TOKEN, HZN_ESS_CERT, HZN_ESS_API_ADDRESS, MMS_HELPER_OBJECT_TYPE, id)
             try:
-              log("info", mark_received_command)
-              subprocess.run(mark_received_command, shell=True, check=True)
-              debug('ESS object received command was successful.')
+              rename_command = '/bin/mv %s/%s %s/%s' % (MMS_HELPER_VOLUME_MOUNT, tempfile, MMS_HELPER_VOLUME_MOUNT, id)
+              subprocess.run(rename_command, shell=True, check=True)
+              debug('File rename was successful.')
+              mark_received_command = ESS_MARK_RECEIVED_BASE % (HZN_ESS_USER, HZN_ESS_TOKEN, HZN_ESS_CERT, HZN_ESS_API_ADDRESS, MMS_HELPER_OBJECT_TYPE, id)
+              try:
+                log("info", mark_received_command)
+                subprocess.run(mark_received_command, shell=True, check=True)
+                debug('ESS object received command was successful.')
+              except:
+                log("ERROR", mark_received_command)
             except:
-              log("ERROR", mark_received_command)
+              log("ERROR", rename_command)
           except:
-            log("ERROR", rename_command)
+            log("ERROR", tar_command)
         except:
           log("ERROR", redirect_command)
     except:
