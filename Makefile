@@ -47,9 +47,11 @@ YOUR_OBJECT_TYPE:=tensorflow-object
 QUAY_REGISTRY:=quay.io/ibmtechgarage
 
 # Optionally specify an example file to send as an MMS object. If you do so,
-# a file named with the path in OPTIONAL_OBJECT_FILE must be present.
-OPTIONAL_OBJECT_ID:=dave
-OPTIONAL_OBJECT_FILE:=./dave.tar.gz
+# a file named with the path in MODEL_FILE must be present.
+MODEL_ID:=mnist.tar.gz
+MODEL_FILE:=./mnist.tar.gz
+MODEL_CONFIG_ID:=models.config
+MODEL_CONFIG_FILE:=./models.config
 MMS_HELPER_OBJECT_DEF=mms-model-deploy.json
 
 # The "helper" utility is useful for things like this so I included it.
@@ -57,7 +59,7 @@ ARCH:=`./helper -a`
 
 # Variables for MMS_Helper container/service/pattern (optionally edit these)
 # Note that service and container may have differen names and versions.
-MMS_HELPER_SERVICE_VERSION:=1.0.8
+MMS_HELPER_SERVICE_VERSION:=1.0.9
 MMS_HELPER_SERVICE_NAME:=mms-helper
 MMS_HELPER_CONTAINER:=$(QUAY_REGISTRY)/$(MMS_HELPER_SERVICE_NAME)_$(ARCH):$(MMS_HELPER_SERVICE_VERSION)
 # For DockerHub, leave the variable below as it is (empty).
@@ -108,13 +110,21 @@ register-policy:
 register-pattern:
 	hzn register --pattern "$(MMS_HELPER_PATTERN_NAME)"
 
-publish-object:
+publish-model:
 	@ARCH=$(ARCH) \
         SERVICE_NAME="$(MMS_HELPER_SERVICE_NAME)" \
         SERVICE_VERSION="$(MMS_HELPER_SERVICE_VERSION)" \
         OBJECT_TYPE="$(YOUR_OBJECT_TYPE)" \
-        FILE_ID="$(OPTIONAL_OBJECT_ID)" \
-	hzn mms object publish --object=$(OPTIONAL_OBJECT_FILE) --def=$(MMS_HELPER_OBJECT_DEF)
+        FILE_ID="$(MODEL_ID)" \
+	hzn mms object publish --object=$(MODEL_FILE) --def=$(MMS_HELPER_OBJECT_DEF)
+
+publish-model-config:
+	@ARCH=$(ARCH) \
+        SERVICE_NAME="$(MMS_HELPER_SERVICE_NAME)" \
+        SERVICE_VERSION="$(MMS_HELPER_SERVICE_VERSION)" \
+        OBJECT_TYPE="$(YOUR_OBJECT_TYPE)" \
+        FILE_ID="$(MODEL_CONFIG_ID)" \
+	hzn mms object publish --object=$(MODEL_CONFIG_FILE) --def=$(MMS_HELPER_OBJECT_DEF)
 
 validate-creds:
 	@if [ -z "${HZN_ORG_ID}" ]; \
