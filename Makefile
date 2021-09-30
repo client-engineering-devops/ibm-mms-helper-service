@@ -66,7 +66,7 @@ MMS_HELPER_CONTAINER:=$(QUAY_REGISTRY)/$(MMS_HELPER_SERVICE_NAME)_$(ARCH):$(MMS_
 # For secure registries set it using:  -r "registry.wherever.com:myid:mypw"`
 MMS_HELPER_CONTAINER_CREDS:=
 MMS_HELPER_PATTERN_NAME:=mms-helper-pattern
-MMS_HELPER_POLICY_NAME:=mms-helper-deploy-policy
+MMS_HELPER_POLICY_NAME:=mms-helper-deploy-policy.json
 
 update: build push publish-service publish-deployment-policy
 
